@@ -1,5 +1,6 @@
 " don't be vi-compatible
 set nocompatible
+let mapleader=" "
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " git-driven install of plugins and auto integration
@@ -25,16 +26,20 @@ if has("autocmd")
    autocmd BufNewFile,BufRead *.ssl setfiletype xml
 endif
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" show filename
+set statusline+=%F
+set laststatus=2
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " color scheme
 
-if ! has("gui_running")
-   set t_Co=256
-endif
+"if ! has("gui_running")
+"   set t_Co=256
+"endif
 
-set background=light
-colors peaksea
+"set background=light
+"colors peaksea
 
 
 """""""""""""""""""""""""""""""""""""""
@@ -72,6 +77,7 @@ syntax on
 
 " Shortcut to rapidly toggle `set list`
 nmap <leader>l :set list!<CR>
+set list
 
 " Use the same symbols as TextMate for tabstops and EOLs
 set listchars=tab:▸\ ,eol:¬
@@ -142,11 +148,16 @@ vnoremap <C-r> <Esc>:%s/<c-r>=GetVisual()<cr>//gc<left><left><left>
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
-" moveing
+" moving
 nmap <s-h> <c-w><
 nmap <s-j> <c-w>-
 nmap <s-k> <c-w>+
 nmap <s-l> <c-w>>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" inserting newline
+nmap <S-Enter> O<Esc>j
+nmap <CR> o<Esc>k
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " NERDTree
@@ -160,8 +171,8 @@ nmap <s-w> :TlistToggle<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " conque term
-let g:ConqueTerm_ReadUnfocused = 1
-nmap <s-a> :ConqueTermSplit bash<cr>
+" let g:ConqueTerm_ReadUnfocused = 1
+" nmap <s-a> :ConqueTermSplit bash<cr>
 
 
 " Set tabstop, softtabstop and shiftwidth to the same value
