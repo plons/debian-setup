@@ -40,8 +40,8 @@ updateOrInstall()
       if [[ $pluginUrl =~ .*\.git ]]; then
           git clone $pluginUrl $pluginName
       else
-         echo "TODO"
-         curl --location --progress-bar --compressed $pluginUrl
+         echo "helper-functions::updateOrInstall: we don't support plugins that aren't git repos yet!"
+         #curl --location --progress-bar --compressed $pluginUrl
       fi
       popd > /dev/null
    else
