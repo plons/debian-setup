@@ -4,6 +4,7 @@ let mapleader=" "
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " git-driven install of plugins and auto integration
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if filereadable(expand("$HOME/.vim/autoload/pathogen.vim"))
    silent! call pathogen#infect()
 endif
@@ -22,17 +23,23 @@ if has("autocmd")
    " autocompletion
    autocmd FileType c,cpp iab /*** /******************************************************************************
 
+   autocmd FileType c,cpp,h,hpp setlocal ts=4 sts=4 sw=4 noexpandtab
+
+   autocmd FileType xml setlocal ts=3 sts=3 sw=3 expandtab
+
    " Treat .ssl files as XML
-   autocmd BufNewFile,BufRead *.ssl setfiletype xml
+   autocmd BufNewFile,BufRead *.ssl,*.rss setfiletype xml
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " show filename
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set statusline+=%F
 set laststatus=2
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " color scheme
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 "if ! has("gui_running")
 "   set t_Co=256
@@ -40,11 +47,12 @@ set laststatus=2
 
 "set background=light
 "colors peaksea
+colors vylight
 
 
 """""""""""""""""""""""""""""""""""""""
 " terminal settings
-"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " syntax highlighting
 if has('syntax') && (&t_Co > 1)
    syntax enable
@@ -108,6 +116,7 @@ nmap <s-b> /<bar>:\?\(\S\+-\?\)\+<bar><cr>
 " Escape special characters in a string for exact matching.
 " This is useful to copying strings from the file to the search tool
 " Based on this - http://peterodding.com/code/vim/profile/autoload/xolox/escape.vim
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! EscapeString (string)
    let string=a:string
    " Escape regex characters
@@ -117,9 +126,11 @@ function! EscapeString (string)
    return string
 endfunction
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Get the current visual block for search and replaces
 " This function passed the visual block through a string escape function
 " Based on this - http://stackoverflow.com/questions/676600/vim-replace-selected-text/677918#677918
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! GetVisual() range
    " Save the current register and clipboard
    let reg_save = getreg('"')
@@ -149,6 +160,7 @@ vnoremap <C-r> <Esc>:%s/<c-r>=GetVisual()<cr>//gc<left><left><left>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " moving
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nmap <s-h> <c-w><
 nmap <s-j> <c-w>-
 nmap <s-k> <c-w>+
@@ -156,17 +168,22 @@ nmap <s-l> <c-w>>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " inserting newline
-nmap <S-Enter> O<Esc>j
-nmap <CR> o<Esc>k
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"nmap <S-Enter> O<Esc>j
+"DO NOT USE THIS MAPPING
+"Using the mapping would disable enter to be used in the command or search window!
+"nmap <CR> o<Esc>k
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " NERDTree
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let NERDTreeDirArrows=0
 let NERDTreeIgnore=['\.swp$', '^\.git', '\~$']
 nmap <s-q> :NERDTreeFind<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " taglist: http://sourceforge.net/projects/vim-taglist
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nmap <s-w> :TlistToggle<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -175,7 +192,9 @@ nmap <s-w> :TlistToggle<cr>
 " nmap <s-a> :ConqueTermSplit bash<cr>
 
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Set tabstop, softtabstop and shiftwidth to the same value
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
 command! -nargs=* Stab call Stab()
 function! Stab()
    let l:tabstop = 1 * input('set tabstop = softtabstop = shiftwidth = ')
@@ -202,3 +221,23 @@ function! SummarizeTabs()
       echohl None
    endtry
 endfunction
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Preserve last search and cursor position
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! Preserve(command)
+    " Preparation: save last search, and cursor position.
+    let _s=@/
+    let l = line(".")
+    let c = col(".")
+    " Do the business:
+    execute a:command
+    " Clean up: restore previous search history, and cursor position
+    let @/=_s
+    call cursor(l, c)
+endfunction 
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Cleanup whitespace at the end of a line
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nmap _$ :call Preserve("%s/\\s\\+$//e")<CR>
