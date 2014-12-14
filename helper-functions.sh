@@ -27,6 +27,22 @@ function verifySymlink()
    fi
 }
 
+function downloadAndInstallZip()
+{
+   if [ $# != 2 ]; then echo "downloadAndInstallZip: expected 2 arguments, received $#!"; exit 1; fi
+   if [ -z "$VIM_ROOT" ]; then echo "downloadAndInstallZip: expected VIM_ROOT to be specified!"; exit 1; fi
+   local pluginName=$1
+   local pluginUrl=$2
+   if [ ! -d $VIM_ROOT/bundle ]; then mkdir $VIM_ROOT/bundle; fi
+   if [ ! -d $VIM_ROOT/bundle/$pluginName ]; then
+      echo "Installing $pluginName"
+      pushd $VIM_ROOT/bundle > /dev/null
+      wget wget $pluginUrl -O $pluginName.zip
+      unzip $pluginName.zip
+      popd > /dev/null
+   fi
+}
+
 function updateOrInstall()
 {
    if [ $# != 2 ]; then echo "updateOrInstall: expected 2 arguments, received $#!"; exit 1; fi
@@ -39,10 +55,10 @@ function updateOrInstall()
       pushd $VIM_ROOT/bundle > /dev/null
       if [[ $pluginUrl =~ .*\.git ]]; then
           git clone $pluginUrl $pluginName
-       elif [[ $pluginUrl =~ .*bitbucket.* ]]; then
+      elif [[ $pluginUrl =~ .*bitbucket.* ]]; then
           hg clone $pluginUrl $pluginName
       else
-         echo "helper-functions::updateOrInstall: we don't support plugins that aren't git repos yet!"
+         echo "helper-functions::updateOrInstall: we don't support installing this type of plugin yet!"
          #curl --location --progress-bar --compressed $pluginUrl
       fi
       popd > /dev/null
@@ -58,7 +74,7 @@ function updateOrInstall()
          result="$(hg pull)"
          result_code=$?;
       else
-         echo "WARNING: helper-function::updateOrInstall: we don't support this type of plugin yet!"
+         echo "WARNING: helper-function::updateOrInstall: we don't support updating this type of plugin yet!"
       fi
       if [ $result_code != 0 ]; then
          echo "  WARNING: Somthing went wrong while trying to update: $result";
