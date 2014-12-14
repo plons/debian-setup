@@ -1,13 +1,13 @@
 #!/bin/bash
 
-assertFilePresent()
+function assertFilePresent()
 {
    if [ $# != 1 ]; then echo "assertFilePresent: expected 1 arguments, received $#!"; exit 1; fi
    file=$1
    if [ ! -f $file ]; then echo "Unable to find $file!"; exit 1; fi
 }
 
-assertDirectoryPresent()
+function assertDirectoryPresent()
 {
    if [ $# != 1 ]; then echo "assertFilePresent: expected 1 arguments, received $#!"; exit 1; fi
    directory=$1
@@ -15,7 +15,7 @@ assertDirectoryPresent()
 }
 
 
-verifySymlink()
+function verifySymlink()
 {
    if [ $# != 2 ]; then echo "verifySymlink: expected 2 arguments, received $#!"; exit 1; fi
    linkedFile=$1
@@ -27,18 +27,20 @@ verifySymlink()
    fi
 }
 
-updateOrInstall()
+function updateOrInstall()
 {
    if [ $# != 2 ]; then echo "updateOrInstall: expected 2 arguments, received $#!"; exit 1; fi
    if [ -z "$VIM_ROOT" ]; then echo "updateOrInstall: expected VIM_ROOT to be specified!"; exit 1; fi
-   pluginName=$1
-   pluginUrl=$2
+   local pluginName=$1
+   local pluginUrl=$2
    if [ ! -d $VIM_ROOT/bundle ]; then mkdir $VIM_ROOT/bundle; fi
    if [ ! -d $VIM_ROOT/bundle/$pluginName ]; then
       echo "Installing $pluginName"
       pushd $VIM_ROOT/bundle > /dev/null
       if [[ $pluginUrl =~ .*\.git ]]; then
           git clone $pluginUrl $pluginName
+       elif [[ $pluginUrl =~ .*bitbucket.* ]]; then
+          hg clone $pluginUrl $pluginName
       else
          echo "helper-functions::updateOrInstall: we don't support plugins that aren't git repos yet!"
          #curl --location --progress-bar --compressed $pluginUrl
@@ -46,11 +48,21 @@ updateOrInstall()
       popd > /dev/null
    else
       echo "Updating $pluginName"
+      local result="";
+      local result_code=0;
       pushd $VIM_ROOT/bundle/$pluginName > /dev/null
-      result="$(git pull)"
-      if [ $? != 0 ]; then
-         echo "  WARNING: Somthing went wrong while trying to pull: $result";
-         echo "  Continueing..." 
+      if [[ $pluginUrl =~ .*\.git ]]; then
+         result="$(git pull)"
+         result_code=$?;
+      elif [[ $pluginUrl =~ .*bitbucket.* ]]; then
+         result="$(hg pull)"
+         result_code=$?;
+      else
+         echo "WARNING: helper-function::updateOrInstall: we don't support this type of plugin yet!"
+      fi
+      if [ $result_code != 0 ]; then
+         echo "  WARNING: Somthing went wrong while trying to update: $result";
+         echo "  Continuing..." 
       fi
       popd > /dev/null
    fi
