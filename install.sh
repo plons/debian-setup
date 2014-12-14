@@ -17,8 +17,11 @@ updateOrInstall vim-nerdtree           https://github.com/scrooloose/nerdtree.gi
 updateOrInstall vim-nerdcommenter      https://github.com/scrooloose/nerdcommenter.git
 updateOrInstall vim-fugitive           https://github.com/tpope/vim-fugitive.git
 updateOrInstall vim-visual-star-search https://github.com/bronson/vim-visual-star-search.git
+#updateOrInstall vim-autocomplpop       https://bitbucket.org/ns9tks/vim-autocomplpop
 #updateOrInstall vim-taglist       https://github.com/vim-scripts/taglist.vim.git
 #updateOrInstall vim-taglist       http://sourceforge.net/projects/vim-taglist/files/latest/download?source=files 
+
+downloadAndInstallZip vim-fswitch http://www.vim.org/scripts/download_script.php?src_id=14047 
 
 verifySymlink $DROPBOX_SCRIPTS_DIR/bashrc         $HOME_DIR/.bashrc
 verifySymlink $DROPBOX_SCRIPTS_DIR/bashrc.d       $HOME_DIR/.bashrc.d
