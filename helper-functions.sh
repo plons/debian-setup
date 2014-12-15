@@ -37,7 +37,7 @@ function downloadAndInstallZip()
    if [ ! -d $VIM_ROOT/bundle/$pluginName ]; then
       echo "Installing $pluginName"
       pushd $VIM_ROOT/bundle > /dev/null
-      wget wget $pluginUrl -O $pluginName.zip
+      wget $pluginUrl -O $pluginName.zip
       unzip $pluginName.zip
       popd > /dev/null
    fi
