@@ -17,6 +17,7 @@ updateOrInstall vim-nerdtree           https://github.com/scrooloose/nerdtree.gi
 updateOrInstall vim-nerdcommenter      https://github.com/scrooloose/nerdcommenter.git
 updateOrInstall vim-fugitive           https://github.com/tpope/vim-fugitive.git
 updateOrInstall vim-visual-star-search https://github.com/bronson/vim-visual-star-search.git
+updateOrInstall vim-youcompleteme      https://github.com/Valloric/YouCompleteMe.git
 #updateOrInstall vim-autocomplpop       https://bitbucket.org/ns9tks/vim-autocomplpop
 #updateOrInstall vim-taglist       https://github.com/vim-scripts/taglist.vim.git
 #updateOrInstall vim-taglist       http://sourceforge.net/projects/vim-taglist/files/latest/download?source=files 

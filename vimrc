@@ -223,6 +223,11 @@ function! SummarizeTabs()
 endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
+" YouCompleteMe
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:ycm_confirm_extra_conf = 0
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Preserve last search and cursor position
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 function! Preserve(command)

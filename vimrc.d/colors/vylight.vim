@@ -41,8 +41,8 @@ if version >= 700
   hi IncSearch                  guibg=#ffff33  gui=bold
   hi CursorLine                 guibg=#f1faff
   hi ColorColumn                guibg=#fafafa
+  hi Pmenu       ctermfg=black  ctermbg=white
 endif
-
 
 " Syntax highlighting 
 hi Comment       guifg=#777777  gui=none
