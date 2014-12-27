@@ -45,10 +45,11 @@ function downloadAndInstallZip()
 
 function updateOrInstall()
 {
-   if [ $# != 2 ]; then echo "updateOrInstall: expected 2 arguments, received $#!"; exit 1; fi
+   if [ $# -lt 3 ]; then echo "updateOrInstall: expected 3 arguments, received $#!"; exit 1; fi
    if [ -z "$VIM_ROOT" ]; then echo "updateOrInstall: expected VIM_ROOT to be specified!"; exit 1; fi
-   local pluginName=$1
-   local pluginUrl=$2
+   local update=$1
+   local pluginName=$2
+   local pluginUrl=$3
    if [ ! -d $VIM_ROOT/bundle ]; then mkdir $VIM_ROOT/bundle; fi
    if [ ! -d $VIM_ROOT/bundle/$pluginName ]; then
       echo "Installing $pluginName"
@@ -62,7 +63,7 @@ function updateOrInstall()
          #curl --location --progress-bar --compressed $pluginUrl
       fi
       popd > /dev/null
-   else
+   elif [ $update = 1 ]; then
       echo "Updating $pluginName"
       local result="";
       local result_code=0;

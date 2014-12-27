@@ -1,10 +1,41 @@
 #!/bin/bash
-source helper-functions.sh
+
+################################################################################
+# Parse parameters
+################################################################################
+function show_help {
+    echo "Install the vim plugins and create required symbolic links.";
+    echo "  -h Show this help function";
+    echo "  -u Update existing plugins";
+}
+OPTIND=1         # Reset in case getopts has been used previously in the shell.
+verbose=0
+update=0
+while getopts "h?vu" opt; do
+   case "$opt" in
+      h|\?)
+         show_help
+         exit 0
+         ;;
+      v)  verbose=1 ;;
+      u)  update=1 ;;
+   esac
+done
+shift $((OPTIND-1))
+
+################################################################################
+# Determine important directories
+################################################################################
 DROPBOX_SCRIPTS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 USER=$(whoami)
 HOME_DIR=/home/$USER
 VIM_ROOT=$HOME_DIR/.vim
 
+source helper-functions.sh
+
+################################################################################
+# Verify presence of expected directories and files
+################################################################################
 assertDirectoryPresent $HOME_DIR
 assertDirectoryPresent $DROPBOX_SCRIPTS_DIR/bashrc.d
 assertDirectoryPresent $DROPBOX_SCRIPTS_DIR/vimrc.d
@@ -12,15 +43,18 @@ assertFilePresent $DROPBOX_SCRIPTS_DIR/bashrc
 assertFilePresent $DROPBOX_SCRIPTS_DIR/vimrc
 assertFilePresent $DROPBOX_SCRIPTS_DIR/ssh_config
 
-updateOrInstall vim-pathogen           https://github.com/tpope/vim-pathogen.git
-updateOrInstall vim-nerdtree           https://github.com/scrooloose/nerdtree.git
-updateOrInstall vim-nerdcommenter      https://github.com/scrooloose/nerdcommenter.git
-updateOrInstall vim-fugitive           https://github.com/tpope/vim-fugitive.git
-updateOrInstall vim-visual-star-search https://github.com/bronson/vim-visual-star-search.git
-updateOrInstall vim-youcompleteme      https://github.com/Valloric/YouCompleteMe.git
-#updateOrInstall vim-autocomplpop       https://bitbucket.org/ns9tks/vim-autocomplpop
-#updateOrInstall vim-taglist       https://github.com/vim-scripts/taglist.vim.git
-#updateOrInstall vim-taglist       http://sourceforge.net/projects/vim-taglist/files/latest/download?source=files 
+################################################################################
+# Download plugins
+################################################################################
+updateOrInstall $update vim-pathogen           https://github.com/tpope/vim-pathogen.git
+updateOrInstall $update vim-nerdtree           https://github.com/scrooloose/nerdtree.git
+updateOrInstall $update vim-nerdcommenter      https://github.com/scrooloose/nerdcommenter.git
+updateOrInstall $update vim-fugitive           https://github.com/tpope/vim-fugitive.git
+updateOrInstall $update vim-visual-star-search https://github.com/bronson/vim-visual-star-search.git
+updateOrInstall $update vim-youcompleteme      https://github.com/Valloric/YouCompleteMe.git
+#updateOrInstall $update vim-autocomplpop       https://bitbucket.org/ns9tks/vim-autocomplpop
+#updateOrInstall $update vim-taglist       https://github.com/vim-scripts/taglist.vim.git
+#updateOrInstall $update vim-taglist       http://sourceforge.net/projects/vim-taglist/files/latest/download?source=files 
 
 downloadAndInstallZip vim-fswitch http://www.vim.org/scripts/download_script.php?src_id=14047 
 
