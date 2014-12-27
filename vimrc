@@ -157,6 +157,10 @@ endfunction
 "vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left>
 vnoremap <C-r> <Esc>:%s/<c-r>=GetVisual()<cr>//gc<left><left><left>
 
+" Find resource using CtrlP plugin with the same shortcut as eclipse
+noremap <C-R> :CtrlP<CR>
+noremap <C-o> :TagbarToggle<CR>
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " moving

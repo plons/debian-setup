@@ -52,6 +52,8 @@ updateOrInstall $update vim-nerdcommenter      https://github.com/scrooloose/ner
 updateOrInstall $update vim-fugitive           https://github.com/tpope/vim-fugitive.git
 updateOrInstall $update vim-visual-star-search https://github.com/bronson/vim-visual-star-search.git
 updateOrInstall $update vim-youcompleteme      https://github.com/Valloric/YouCompleteMe.git
+updateOrInstall $update vim-ctrlp              https://github.com/kien/ctrlp.vim.git
+updateOrInstall $update vim-tagbar             https://github.com/majutsushi/tagbar.git
 #updateOrInstall $update vim-autocomplpop       https://bitbucket.org/ns9tks/vim-autocomplpop
 #updateOrInstall $update vim-taglist       https://github.com/vim-scripts/taglist.vim.git
 #updateOrInstall $update vim-taglist       http://sourceforge.net/projects/vim-taglist/files/latest/download?source=files 
