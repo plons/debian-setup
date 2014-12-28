@@ -86,12 +86,12 @@ syntax on
 set hlsearch
 
 " <Ctrl-l> redraws the screen and removes any search highlighting.
-" nnoremap <CR> :noh<CR> DO NOT USE THIS BINDING: will cause problems with other uses of CR (e.g. in YcmDiags)
+" nnoremap <CR> :noh<CR> ===> DO NOT USE THIS MAPPING: will cause problems with other uses of CR (e.g. in YcmDiags)
 nnoremap <silent> <C-l> :nohl<CR><C-l>
 
 " Shortcut to rapidly toggle `set list`
-nmap <leader>l :set list!<CR>
-set list
+" nmap <leader>l :set list!<CR> ===> DO NOT USE THIS MAPPING: will cause problems in combination with easymotion
+" set list
 
 " Use the same symbols as TextMate for tabstops and EOLs
 set listchars=tab:▸\ ,eol:¬
@@ -164,7 +164,7 @@ endfunction
 vnoremap <C-r> <Esc>:%s/<c-r>=GetVisual()<cr>//gc<left><left><left>
 
 " Find resource using CtrlP plugin with the same shortcut as eclipse
-noremap <C-R> :CtrlP<CR>
+" noremap <C-R> :CtrlP<CR> ===> DO NOT USE THIS MAPPING: <C-r> is already used for 'redo' command
 noremap <C-o> :TagbarToggle<CR>
 
 
@@ -179,7 +179,7 @@ nmap <s-l> <c-w>>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " moving between tabs (you can also use gt and gT)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
-" DO NOT USE THIS MAPPING
+" ===> DO NOT USE THIS MAPPING
 " <C-l> is already in use for clearing the screen
 " map  <C-l> :tabnext<CR>
 " map  <C-h> :tabprevious<CR>
@@ -189,7 +189,7 @@ nmap <s-l> <c-w>>
 " inserting newline
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 "nmap <S-Enter> O<Esc>j
-"DO NOT USE THIS MAPPING
+"===> DO NOT USE THIS MAPPING
 "Using the mapping would disable enter to be used in the command or search window!
 "nmap <CR> o<Esc>k
 
@@ -201,9 +201,24 @@ let NERDTreeIgnore=['\.swp$', '^\.git', '\~$']
 nmap <s-q> :NERDTreeFind<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
-" taglist: http://sourceforge.net/projects/vim-taglist
+" NERDCommenter
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
+map <C-c> <leader>c<space>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" taglist: http://sourceforge.net/projects/vim-taglist
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
 nmap <s-w> :TlistToggle<cr>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" easymotion
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+map <Leader>l <Plug>(easymotion-lineforward)
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
+map <Leader>h <Plug>(easymotion-linebackward)
+
+let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " conque term
