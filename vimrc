@@ -83,6 +83,12 @@ filetype plugin indent on
 
 syntax on
 
+set hlsearch
+
+" <Ctrl-l> redraws the screen and removes any search highlighting.
+" nnoremap <CR> :noh<CR> DO NOT USE THIS BINDING: will cause problems with other uses of CR (e.g. in YcmDiags)
+nnoremap <silent> <C-l> :nohl<CR><C-l>
+
 " Shortcut to rapidly toggle `set list`
 nmap <leader>l :set list!<CR>
 set list
@@ -163,12 +169,21 @@ noremap <C-o> :TagbarToggle<CR>
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
-" moving
+" resize split windows
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 nmap <s-h> <c-w><
 nmap <s-j> <c-w>-
 nmap <s-k> <c-w>+
 nmap <s-l> <c-w>>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" moving between tabs (you can also use gt and gT)
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" DO NOT USE THIS MAPPING
+" <C-l> is already in use for clearing the screen
+" map  <C-l> :tabnext<CR>
+" map  <C-h> :tabprevious<CR>
+" map  <C-n> :tabnew<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " inserting newline
