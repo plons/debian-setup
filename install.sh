@@ -54,6 +54,7 @@ updateOrInstall $update vim-ctrlp              https://github.com/kien/ctrlp.vim
 updateOrInstall $update vim-mru                https://github.com/yegappan/mru.git
 
 updateOrInstall $update vim-nerdcommenter      https://github.com/scrooloose/nerdcommenter.git
+updateOrInstall $update vim-surround           https://github.com/tpope/vim-surround.git
 updateOrInstall $update vim-fugitive           https://github.com/tpope/vim-fugitive.git
 updateOrInstall $update vim-visual-star-search https://github.com/bronson/vim-visual-star-search.git
 updateOrInstall $update vim-youcompleteme      https://github.com/Valloric/YouCompleteMe.git
