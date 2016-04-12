@@ -1,0 +1,81 @@
+https://learnxinyminutes.com/docs/tmux/
+
+Sessions
+========
+tmux new -s session_name
+tmux attach -t session_name
+tmux switch -t session_name
+tmux list-sessions (tmux ls)
+tmux detach (prefix + d)
+tmux kill-session
+   -t mySession    # Kill mySession
+   -a              # Kill all sessions
+   -a -t mySession # Kill all sessions but the target
+
+Windows
+=======
+tmux new-window (prefix + c)
+tmux select-window -t :0-9 (prefix + 0-9)
+tmux rename-window (prefix + ,)
+tmux kill-window   # Kill current window
+   -t "#"          # Kill target window
+   -a              # Kill all windows
+   -a -t "#"       # Kill all windows but the target
+
+Panes
+=====
+tmux split-window (prefix + ")
+tmux split-window -h (prefix + %)
+tmux swap-pane -[UDLR] (prefix + { or })
+tmux select-pane -[UDLR]
+tmux select-pane -t :.+
+
+Key Bindings
+============
+----------------------------------------------------------------------
+  (C-b) = Ctrl + b    # 'Prefix' combination required to use keybinds
+
+  (M-1) = Meta + 1 -or- Alt + 1
+----------------------------------------------------------------------
+
+   ?                  # List all key bindings
+   :                  # Enter the tmux command prompt
+   r                  # Force redraw of the attached client
+   c                  # Create a new window
+
+   !                  # Break the current pane out of the window.
+   %                  # Split the current pane into two, left and right
+   "                  # Split the current pane into two, top and bottom
+
+   n                  # Change to the next window
+   p                  # Change to the previous window
+   {                  # Swap the current pane with the previous pane
+   }                  # Swap the current pane with the next pane
+
+   s                  # Select a new session for the attached client
+   interactively
+   w                  # Choose the current window interactively
+   0 to 9             # Select windows 0 to 9
+
+   d                  # Detach the current client
+   D                  # Choose a client to detach
+
+   &                  # Kill the current window
+   x                  # Kill the current pane
+
+   Up, Down           # Change to the pane above, below, left, or right
+   Left, Right
+
+   M-1 to M-5         # Arrange panes:
+                      # 1) even-horizontal
+                      # 2) even-vertical
+                      # 3) main-horizontal
+                      # 4) main-vertical
+                      # 5) tiled
+
+   C-Up, C-Down       # Resize the current pane in steps of one cell
+   C-Left, C-Right
+
+   M-Up, M-Down       # Resize the current pane in steps of five cells
+   M-Left, M-Right
+
