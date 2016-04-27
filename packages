@@ -1,0 +1,31 @@
+skype
+teamviewer
+ntp
+seahorse
+
+# terminal
+# Make sure your bashrc file contains:
+#    if [ -f /etc/bash_completion ]; then
+#      . /etc/bash_completion
+#    fi
+bash-completion
+
+# monitoring
+htop
+# lm_sensors
+hddtemp
+udisks2
+
+# editors
+# xxd is part of vim-common
+vim-nox
+nano
+most
+bless
+
+# development
+build-essential
+module-assistant
+meld
+valgrind
+gdb
