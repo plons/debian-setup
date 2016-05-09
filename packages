@@ -9,6 +9,8 @@ seahorse
 #      . /etc/bash_completion
 #    fi
 bash-completion
+libterm-progressbar-perl
+libparallel-iterator-perl
 
 # monitoring
 htop
