@@ -1,0 +1,24 @@
+# deb http://se-chest.keyww.com/darwyn/ wheezy darwyn
+# deb http://rndser-be-updates.keyww.com/packages_wheezy ./
+# deb http://rndser-be-git/devel/ wheezy key
+#
+# deb http://se-world.keyww.com/devel/ wheezy key
+# deb http://se-chest/devel/ wheezy key
+# deb http://rndser-be-build/debian/ wheezy main
+# deb http://puffin.keyww.com/debian-local/ sterling local
+# deb http://puffin.keyww.com/debian-devel/ key local
+
+# deb http://rndser-be-packages.keyww.com/veryx/ master all
+# deb http://rndser-be-packages.keyww.com/veryx/ utils all
+
+
+# OLD SERVERS
+# deb ssh:git@se-chest:/var/www/darwyn/ wheezy darwyn
+# deb ssh:vfe_updates@rndser-be-updates:/home/vfe_updates/vfe_repository/packages_wheezy/ ./
+# deb ssh:key@rndser-be-build:/var/www/debian/ wheezy main
+
+deb ssh:git@se-chest:/var/www/devel/ wheezy key
+deb ssh:git@se-world.keyww.com:/var/www/devel/ wheezy key
+deb ssh:xp@rndser-be-packages.keyww.com:/var/www/veryx/ master all
+deb ssh:xp@rndser-be-packages.keyww.com:/var/www/veryx/ utils all
+deb ssh:xp@rndser-be-packages.keyww.com:/var/www/veryx/ machines all
