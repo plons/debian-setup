@@ -1,7 +1,10 @@
-skype
-teamviewer
+firmware-linux-nonfree
+
+#skype
+# teamviewer
 ntp
 seahorse
+menulibre
 
 # terminal
 # Make sure your bashrc file contains:
@@ -11,6 +14,7 @@ seahorse
 bash-completion
 libterm-progressbar-perl
 libparallel-iterator-perl
+tmux
 
 # monitoring
 htop
@@ -24,6 +28,7 @@ vim-nox
 nano
 most
 bless
+geany
 
 # development
 build-essential

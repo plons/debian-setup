@@ -31,6 +31,11 @@ HOME_DIR=/home/$USER
 source helper-functions.sh
 
 ################################################################################
+# Verify presence of expected tools
+################################################################################
+hash dialog  2>/dev/null || { sudo aptitude install dialog;  }
+
+################################################################################
 # Verify presence of expected directories and files
 ################################################################################
 actions=()
