@@ -72,6 +72,22 @@ verifySymlink $DROPBOX_SCRIPTS_DIR/ssh/config.$connection $HOME_DIR/.ssh/config
 actions+=("Selected ssh config $connection")
 
 ################################################################################
+# Install some bash extensions
+################################################################################
+if [ ! -f /etc/bash.command-not-found ]; then
+   mkdir -p $HOME_DIR/src && cd $_
+   git clone https://github.com/hkbakke/bash-insulter.git bash-insulter
+   sudo cp bash-insulter/src/bash.command-not-found /etc/
+   if [ -z "$(cat /etc/bash.bashrc |grep bash.command-not-found)" ]; then
+      if [ ! -f /etc/bash.bashrc.prev ]; then
+         sudo cp /etc/bash.bashrc /etc/bash.bashrc.prev
+      fi
+      echo "if [ -f /etc/bash.command-not-found ]; then source /etc/bash.command-not-found; fi" |sudo tee -a /etc/bash.bashrc
+   fi
+   actions+=("Installed bash-insulter")
+fi
+
+################################################################################
 # Show info on actions
 ################################################################################
 if [ ${#actions[@]} -gt 0 ]; then

@@ -23,6 +23,7 @@ pycharm
 ## Configurations
 ssh configuration (copy previous ssh id)
 dotvim
+copy desktop items from ~/.local/share/applications/ (eclipse and pycharm) or create using alacarte
 reset bookmarks
 firefox plugins (lastpass, xmarks, foxy-proxy)
 
