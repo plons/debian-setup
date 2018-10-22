@@ -1,5 +1,5 @@
 #!/bin/bash
-export DISPLAY=:0.0
+export DISPLAY=${1:-':0.0'}
 eclipse_bin=
 if [ -f /home/peter/eclipse/cpp-mars/eclipse ]; then eclipse_bin=/home/peter/eclipse/cpp-mars/eclipse; fi
 if [ -f /home/peter/eclipse/cpp-neon/eclipse ]; then eclipse_bin=/home/peter/eclipse/cpp-neon/eclipse; fi
