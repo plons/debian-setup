@@ -1,0 +1,5 @@
+deb ssh:xp@rndser-be-packages-stretch:/var/www/veryx/ machines all
+deb ssh:xp@rndser-be-packages-stretch:/var/www/veryx/ devel all
+deb ssh:xp@rndser-be-packages-stretch:/var/www/veryx/ stretch all
+deb ssh:xp@rndser-be-packages-stretch:/var/www/veryx/ utils all
+

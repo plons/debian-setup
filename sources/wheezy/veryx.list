@@ -1,0 +1,3 @@
+deb ssh:xp@rndser-be-packages.keyww.com:/var/www/veryx/ master all
+deb ssh:xp@rndser-be-packages.keyww.com:/var/www/veryx/ utils all
+deb ssh:xp@rndser-be-packages.keyww.com:/var/www/veryx/ machines all
