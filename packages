@@ -1,10 +1,18 @@
 firmware-linux-nonfree
 
 #skype
-# teamviewer
+#teamviewer
 ntp
 seahorse
 menulibre
+file-roller
+software-center
+unattended-upgrades
+# echo "Unattended-Upgrade::Mail "root"; > /etc/apt/apt.conf.d/50unattended-upgrades
+# dpkg-reconfigure -plow unattended-upgrades
+# # Now verify changes:
+# cat /etc/apt/apt.conf.d/20auto-upgrades
+
 
 # terminal
 # Make sure your bashrc file contains:
@@ -33,7 +41,9 @@ bless
 geany
 
 # development
+bash-completion
 build-essential
+locate
 module-assistant
 meld
 valgrind
