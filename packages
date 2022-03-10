@@ -6,7 +6,8 @@ ntp
 seahorse
 menulibre
 file-roller
-software-center
+#software-center
+gnome-software
 unattended-upgrades
 # echo "Unattended-Upgrade::Mail "root"; > /etc/apt/apt.conf.d/50unattended-upgrades
 # dpkg-reconfigure -plow unattended-upgrades
@@ -25,6 +26,7 @@ libparallel-iterator-perl
 tmux
 sl
 cowsay-off
+silversearcher-ag
 
 # monitoring
 htop

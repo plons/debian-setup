@@ -10,13 +10,13 @@ function show_help {
 OPTIND=1         # Reset in case getopts has been used previously in the shell.
 verbose=0
 update=0
-while getopts "h?vu" opt; do
+while getopts "h?v" opt; do
    case "$opt" in
       h|\?)
          show_help
          exit 0
          ;;
-      v)  verbose=1 ;;
+      v) verbose=1 ;;
    esac
 done
 shift $((OPTIND-1))
@@ -24,31 +24,32 @@ shift $((OPTIND-1))
 ################################################################################
 # Determine important directories
 ################################################################################
-DROPBOX_SCRIPTS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+DEBIAN_SCRIPTS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 USER=$(whoami)
 HOME_DIR=/home/$USER
 
+# shellcheck source=./helper-functions.sh
 source helper-functions.sh
 
 ################################################################################
 # Verify presence of expected tools
 ################################################################################
-hash dialog  2>/dev/null || { sudo aptitude install dialog;  }
+hash dialog  2>/dev/null || { sudo apt-get install dialog;  }
 
 ################################################################################
 # Verify presence of expected directories and files
 ################################################################################
 actions=()
-assertDirectoryPresent $HOME_DIR
-assertDirectoryPresent $DROPBOX_SCRIPTS_DIR/bashrc.d
-assertFilePresent $DROPBOX_SCRIPTS_DIR/bashrc
-assertFilePresent $DROPBOX_SCRIPTS_DIR/ssh/config.external
-assertFilePresent $DROPBOX_SCRIPTS_DIR/ssh/config.internal
-assertFilePresent $DROPBOX_SCRIPTS_DIR/ssh/config.sshuttle
+assertDirectoryPresent "${HOME_DIR}"
+assertDirectoryPresent "${DEBIAN_SCRIPTS_DIR}/bashrc.d"
+assertFilePresent "${DEBIAN_SCRIPTS_DIR}/bashrc"
+assertFilePresent "${DEBIAN_SCRIPTS_DIR}/ssh/config.external"
+assertFilePresent "${DEBIAN_SCRIPTS_DIR}/ssh/config.internal"
+assertFilePresent "${DEBIAN_SCRIPTS_DIR}/ssh/config.sshuttle"
 
-verifySymlink $DROPBOX_SCRIPTS_DIR/bashrc              $HOME_DIR/.bashrc
-verifySymlink $DROPBOX_SCRIPTS_DIR/bashrc.d            $HOME_DIR/.bashrc.d
-verifySymlink $DROPBOX_SCRIPTS_DIR/tmux.conf           $HOME_DIR/.tmux.conf
+verifySymlink ${DEBIAN_SCRIPTS_DIR}/bashrc              ${HOME_DIR}/.bashrc
+verifySymlink ${DEBIAN_SCRIPTS_DIR}/bashrc.d            ${HOME_DIR}/.bashrc.d
+verifySymlink ${DEBIAN_SCRIPTS_DIR}/tmux.conf           ${HOME_DIR}/.tmux.conf
 actions+=("Verified symbolic link to bashrc file")
 actions+=("Verified symbolic link to tmux config")
 
@@ -68,14 +69,14 @@ do
       *) connection="internal"; echo "Unknown option!!";;
    esac
 done
-verifySymlink $DROPBOX_SCRIPTS_DIR/ssh/config.$connection $HOME_DIR/.ssh/config
+verifySymlink ${DEBIAN_SCRIPTS_DIR}/ssh/config.$connection ${HOME_DIR}/.ssh/config
 actions+=("Selected ssh config $connection")
 
 ################################################################################
 # Install some bash extensions
 ################################################################################
 if [ ! -f /etc/bash.command-not-found ]; then
-   mkdir -p $HOME_DIR/src && cd $_
+   mkdir -p ${HOME_DIR}/src && cd $_
    git clone https://github.com/hkbakke/bash-insulter.git bash-insulter
    sudo cp bash-insulter/src/bash.command-not-found /etc/
    if [ -z "$(cat /etc/bash.bashrc |grep bash.command-not-found)" ]; then
