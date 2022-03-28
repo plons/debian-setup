@@ -1,15 +1,23 @@
 #!/bin/bash
 
+function apt_install() {
+    if [ -z "${_APT_UPDATE_CALLED}" ]; then
+        sudo apt-get update;
+        _APT_UPDATE_CALLED=1
+    fi
+    sudo apt-get install --assume-yes "$@"
+}
+
 function install_bc() {
-    hash bc 2> /dev/null || { sudo apt-get install bc; }
+    hash bc 2> /dev/null || { apt_install bc; }
 }
 
 function install_git() {
-    hash git 2> /dev/null || { sudo apt-get install -y git; }
+    hash git 2> /dev/null || { apt_install git; }
 }
 
 function install_perl() {
-    hash perl 2> /dev/null || { sudo apt-get install -y perl; }
+    hash perl 2> /dev/null || { apt_install perl; }
 }
 
 function install_perl_modules() {
@@ -38,6 +46,20 @@ function install_go() {
         sudo tar -C /usr/local -xzf "${source_package_destination}"
 
         # Append bin location to PATH
+        if [ ! -d "$HOME/.bashrc.d" ]; then
+            # Add support for .bashrc.d
+            mkdir -p "$HOME/.bashrc.d"
+            cat << EOF >> $HOME/.bashrc
+if [ -d ~/.bashrc.d ]; then
+    for script in ~/.bashrc.d/*
+    do
+        # skip non-executable snippets
+        [ -x "\$script" ] || continue
+        . \$script
+    done
+fi
+EOF
+        fi
         echo "export PATH=\$PATH:/usr/local/go/bin:$HOME/go/bin" > $HOME/.bashrc.d/go.sh
         chmod +x $HOME/.bashrc.d/go.sh
         source $HOME/.bashrc
@@ -54,11 +76,11 @@ function install_grpcui() {
 }
 
 function install_zenity() {
-    hash zenity 2>/dev/null || { sudo apt-get install -y zenity; }
+    hash zenity 2>/dev/null || { apt_install zenity; }
 }
 
 function install_wget() {
-    hash wget 2> /dev/null || { sudo apt-get install -y wget; }
+    hash wget 2> /dev/null || { apt_install wget; }
 }
 
 function install_bootstrap_tools() {
@@ -69,7 +91,7 @@ function install_bootstrap_tools() {
         || ! dpkg -l gnupg2 > /dev/null \
         || ! dpkg -l software-properties-common > /dev/null;
     then
-        sudo apt-get update && sudo apt-get install -y apt-transport-https ca-certificates curl gnupg2 software-properties-common
+        sudo apt-get update && apt_install apt-transport-https ca-certificates curl gnupg2 software-properties-common
     fi
 }
 
