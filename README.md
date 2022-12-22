@@ -76,7 +76,8 @@ peter   ALL=NOPASSWD: ALL
 
 ### Third party software
 
-- [atom](https://atom.io/)
+- ~~[atom](https://atom.io/)~~
+- [Visual Studio Code](https://code.visualstudio.com/)
 - [teamviewer](https://www.teamviewer.com/en/download/linux/)
 - [beyondcompare](https://www.scootersoftware.com/download.php)
 - [eclipse](https://www.eclipse.org/downloads/)
@@ -124,7 +125,7 @@ Shell Extensions
 `sudo apt-get install gnome-shell-extensions`
 
 | Suggested extension | description |
-| - ------------------ | - ---------- |
+| ------------------- | ----------- |
 | <https://extensions.gnome.org/local/> | Here you find an overview of your installed shell extensions (this overview is also available in gnome-tweak-tool) |
 | <https://extensions.gnome.org/extension/120/system-monitor/>   | system monitor always visible in status bar (follow the instructions!) |
 | <https://extensions.gnome.org/extension/310/alt-tab-workspace/> | alt-tab switches between windows in current workspace (not all workspaces) |
