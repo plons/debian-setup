@@ -8,12 +8,30 @@ function apt_install() {
     sudo apt-get install --assume-yes "$@"
 }
 
-function install_bc() {
-    hash bc 2> /dev/null || { apt_install bc; }
+function install_bc() { hash bc 2> /dev/null || { apt_install bc; } }
+function install_make() { hash make 2> /dev/null || { apt_install make; } }
+function install_git() { hash git 2> /dev/null || { apt_install git; } }
+function install_realpath() { hash realpath 2> /dev/null || { sudo apt-get install coreutils; } }
+
+function install_git_lg() {
+    git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 }
 
-function install_git() {
-    hash git 2> /dev/null || { apt_install git; }
+function install_gitslave() {
+    hash gits 2> /dev/null || {
+        install_git
+        install_make
+
+        temp_dir=$(mktemp -d)
+        pushd "${temp_dir}" || { echo "Unable to enter temp dir, bailing out"; exit 1; }
+        git clone https://github.com/jaypha/gitslave
+        pushd gitslave || { echo "Unable to enter gitslave dir, bailing out"; exit 1; }
+        make
+        sudo make install
+        popd || echo "Unable to exit gitslave dir"
+        popd || echo "Unable to exit tempdir"
+        rm -fr "${temp_dir}"
+    }
 }
 
 function install_perl() {
@@ -21,7 +39,9 @@ function install_perl() {
 }
 
 function install_perl_modules() {
-    for module in in "$@"; do
+    export PERL_MM_USE_DEFAULT=1
+    export CPAN_MM_USE_DEFAULT=1
+    for module in "$@"; do
         if cpan -l 2>/dev/null |grep -q "${module}"; then
             echo "Perl module ${module} already installed"
         else
@@ -103,8 +123,8 @@ function install_docker() {
         curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
         sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
         sudo apt-get update
-        sudo apt-get install -y docker-ce
-        sudo adduser ${USER:-1000} docker
+        apt_install docker-ce
+        sudo adduser "${USER:-1000}" docker
 
         local warning="Docker is now installed. Log out/in to use."
         if [ -n "${DISPLAY}" ]; then
